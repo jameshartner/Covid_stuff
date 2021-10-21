@@ -25,7 +25,27 @@ library(janitor)
 You can also embed plots, for example:
 
 ```{r}
-covid_data <- read_csv('md_covid_data.csv')
+covid_data <- read_csv('data/covid_data_clean.csv')
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+cleaned_data_count <- covid_data %>%
+  group_by(CountyReport)%>%
+  summarize(
+    total=sum(Number_of_Total_Cases)
+  ) %>%
+  arrange(desc(total)) %>%
+  print(cleaned_data_count)
+Highest_count_by_school <- covid_data %>%
+  group_by(School) %>%
+  summarize(
+    total=sum(Number_of_Total_Cases)
+  ) %>%
+  arrange(desc(total)) %>%
+  print(Highest_count_by_school)
+Baltimore_county <- covid_data %>%
+  filter(CountyReport =='Baltimore')
+St.Marys<- covid_data %>%
+  filter(CountyReport=="St. Mary's")
+```
